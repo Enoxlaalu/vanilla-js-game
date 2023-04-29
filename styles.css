@@ -1,10 +1,29 @@
+.page {
+    display: grid;
+    grid-auto-flow: column;
+}
+
 .animationsSelectWrapper {
     position: absolute;
     top: 50px;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 20%;
 }
 
 select, label, option {
     font-size: 25px;
+}
+
+#bgCanvas {
+    background-color: #000;
+}
+
+.bgContainer {
+    display: grid;
+    grid-row-gap: 12px;
+    justify-items: center;
+    padding: 24px;
+}
+
+#rangeInput {
+    width: 100%;
 }
