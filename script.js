@@ -129,5 +129,64 @@ function renderBg() {
     animate()
 }
 
+function renderEnemies() {
+    const canvas = document.getElementById('enemiesCanvas')
+    const ctx = canvas.getContext('2d')
+    let gameFrame = 0
+
+    const width = canvas.width = 600
+    const height = canvas.height = 600
+
+    const numEnemies = 10
+    const enemiesArray = []
+
+    const image = new Image()
+    image.src = 'assets/img/enemies/enemy1.png'
+
+    class Enemy {
+        constructor() {
+            this.spriteWidth = 293
+            this.spriteHeight = 155
+            this.width = this.spriteWidth / 2.5
+            this.height = this.spriteHeight / 2.5
+            this.x = Math.random() * (width - this.width)
+            this.y = Math.random() * (height - this.height)
+            this.frame = 0
+            this.flapSpeed = Math.floor(Math.random() * 3) + 1
+        }
+        update() {
+            this.x+= Math.random() * 5 - 2.5
+            this.y+= Math.random() * 5 - 2.5
+
+            if (gameFrame % this.flapSpeed === 0) {
+                this.frame > 4 ? this.frame = 0 : this.frame++
+            }
+        }
+        draw() {
+            ctx.drawImage(image, this.frame * this.spriteWidth, 0, this.spriteWidth, this.spriteHeight, this.x, this.y, this.width, this.height)
+        }
+    }
+
+    for (let i = 0; i <= numEnemies; i++) {
+        enemiesArray.push(new Enemy())
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, width, height)
+
+        enemiesArray.forEach(enemy => {
+            enemy.draw()
+            enemy.update()
+        })
+
+        gameFrame++
+
+        requestAnimationFrame(animate)
+    }
+
+    animate()
+}
+
 renderDog()
 renderBg()
+renderEnemies()
